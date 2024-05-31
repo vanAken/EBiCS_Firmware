@@ -92,7 +92,7 @@
 //---------------------------------------------------------------------
 //power settings
 #define PH_CURRENT_MAX 1200
-#define BATTERYCURRENT_MAX 25000  // org. 14 000 volker
+#define BATTERYCURRENT_MAX 14000  // org. 14 000 volker 25 000
 #define REVERSE 1 //1 for normal direction, -1 for reverse
 #define PUSHASSIST_CURRENT 300
 #define VOLTAGE_MIN 1320 //33V
@@ -115,7 +115,7 @@
 //#define ADC_BRAKE
 
 //---------------------------------------------------------------------
-#define AUTODETECT 0  //  org. 0  
+#define AUTODETECT 1  //  org. 0  
 //Das Autodetect muß du auf jeden Fall einmal starten (mit Rad in der Luft), 
 // sonst kann es gar nicht gehen.
 // Am sichersten geht das, wenn man das Display auf Debug stellt und Autodetect auf 1.
