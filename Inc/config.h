@@ -83,7 +83,7 @@
 //Speed settings
 #define WHEEL_CIRCUMFERENCE 2200
 #define GEAR_RATIO 23 //11 for BionX IGH3 23 für 46 Magnete für AYW für 48V 1000W Standard 11x6 ca. 360-380U/min
-#define SPEEDLIMIT 35
+#define SPEEDLIMIT 25
 #define PULSES_PER_REVOLUTION 1
 #define SPEEDSOURCE INTERNAL
 #define SPEEDFILTER 1
@@ -99,7 +99,7 @@
 
 //---------------------------------------------------------------------
 //torquesensor settings
-#define TS_COEF 2400   // org. 2400 volker
+#define TS_COEF 2000   // org. 2400 volker
 #define TS_MODE
 #define TQONAD1
 
@@ -120,6 +120,6 @@
 // sonst kann es gar nicht gehen.
 // Am sichersten geht das, wenn man das Display auf Debug stellt und Autodetect auf 1.
 // Dann wird die Routine bei jedem Einschalten ausgeführt. Wenn sie einmal gelaufen ist, 
-// kannst du Autodetect wieder auf 0 stellen und das Display zurück auf KM5S ? evtl. nicht beim Grace TODO
+// kannst du Autodetect wieder auf 0 stellen und das Display zurück auf 901U
 
 #endif /* CONFIG_H_ */
