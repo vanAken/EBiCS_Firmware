@@ -99,7 +99,7 @@
 
 //---------------------------------------------------------------------
 //torquesensor settings
-#define TS_COEF 300   // org. 2400 volker
+#define TS_COEF 240   // org. 2400 volker
 #define TS_MODE
 #define TQONAD1
 
@@ -111,7 +111,7 @@
 //Regen settings
 
 #define REGEN_CURRENT 800
-#define REGEN_CURRENT_MAX 5000  // org. 10 000  volker
+#define REGEN_CURRENT_MAX 4000  // org. 10 000  volker
 //#define ADC_BRAKE
 
 //---------------------------------------------------------------------
