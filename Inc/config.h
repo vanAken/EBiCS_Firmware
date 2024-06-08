@@ -99,7 +99,7 @@
 
 //---------------------------------------------------------------------
 //torquesensor settings
-#define TS_COEF 2000   // org. 2400 volker
+#define TS_COEF 400   // org. 2400 volker
 #define TS_MODE
 #define TQONAD1
 
