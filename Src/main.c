@@ -513,9 +513,9 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 //run autodect, whenn brake is pulled an throttle is pulled for 10 at startup
 #ifndef NCTE
-
-  	while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){
-
+        // THROTTLE_MIN in wheelchair dont change it ask Hochsitzcola fo the sense of this change TODO 
+  	while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){ 
+    
   				HAL_Delay(200);
   	   			y++;
   	   			if(y==35) autodetect();
