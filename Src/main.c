@@ -515,7 +515,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 #ifndef NCTE
         
 	while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_MIN   +20))){  // volker
-  	//while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){ 
+      //while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){ 
     
   				HAL_Delay(200);
   	   			y++;
@@ -828,10 +828,10 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 			  // read in throttle for throttle override
 
 			  if (adcData[1]<ui16_throttle_mid-50){
-				  int16_mapped_throttle = map(adcData[1], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+				  int16_mapped_throttle = map(adcData[6], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
 			  }
 			  else if(adcData[1]>ui16_throttle_mid+50){
-				  int16_mapped_throttle = map(adcData[1], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+				  int16_mapped_throttle = map(adcData[6], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  // volker org. uint16_mapped_throttle = map(ui16_throttle
 			  }
 			  else int16_mapped_throttle = 0;
 #endif //end NTCE
@@ -904,7 +904,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 					int32_temp_current_target=map(uint32_SPEEDx100_cumulated>>SPEEDFILTER, MP.speedLimit*100,(MP.speedLimit+2)*100,int32_temp_current_target,0);
 					}
 				else{ //limit to 20km/h if pedals are not turning volker                       500, 700
-					int32_temp_current_target=map(uint32_SPEEDx100_cumulated>>SPEEDFILTER, 500, 700,int32_temp_current_target,0);
+					int32_temp_current_target=map(uint32_SPEEDx100_cumulated>>SPEEDFILTER, 2000,2200,int32_temp_current_target,0);
 					}
 				}
 //			else int32_temp_current_target=int32_temp_current_target;
@@ -1019,7 +1019,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 		  //print values for debugging
 
 		  // 					            org.:    adcData[1] change for debugging Gasgrip to the output see line 828 // volker
-		  sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[1],MS.i_q_setpoint, MS.Speed, temp4, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
+		  sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[6],MS.i_q_setpoint, MS.Speed, temp4, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
 		  // sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d\r\n",(uint16_t)adcData[0],(uint16_t)adcData[1],(uint16_t)adcData[2],(uint16_t)adcData[3],(uint16_t)(adcData[4]),(uint16_t)(adcData[5]),(uint16_t)(adcData[6])) ;
 		  // sprintf_(buffer, "%d, %d, %d, %d, %d, %d\r\n",tic_array[0],tic_array[1],tic_array[2],tic_array[3],tic_array[4],tic_array[5]) ;
 		  i=0;
