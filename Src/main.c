@@ -504,7 +504,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 #if defined (ADC_BRAKE)
 	while ((adcData[5]>THROTTLE_MIN   )&&(adcData[1]>(THROTTLE_MAX-THROTTLE_MIN   ))){HAL_Delay(200);  // volker
-   	//while ((adcData[5]>THROTTLE_OFFSET)&&(adcData[1]>(THROTTLE_MAX-THROTTLE_OFFSET))){HAL_Delay(200);
+      //while ((adcData[5]>THROTTLE_OFFSET)&&(adcData[1]>(THROTTLE_MAX-THROTTLE_OFFSET))){HAL_Delay(200);
    	   	   			y++;
    	   	   			if(y==35) autodetect();
    	   	   			}
@@ -522,8 +522,8 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
   	   			if(y==35) autodetect();
   	   			}
 #else
-	ui32_torque_raw_cumulated=THROTTLE_MIN     <<4;  // volker wheel chair ui32_throttle_cumulated
-  	//ui32_torque_raw_cumulated=THROTTLE_OFFSET<<4;
+	ui32_torque_raw_cumulated=THROTTLE_MIN   <<4;  // volker wheel chair ui32_throttle_cumulated
+      //ui32_torque_raw_cumulated=THROTTLE_OFFSET<<4;
 #endif
 
 #if (DISPLAY_TYPE == DISPLAY_TYPE_DEBUG)
@@ -536,7 +536,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 #endif
 
         while(adcData[1]>THROTTLE_MIN)    // volker
-   	// while(adcData[1]>THROTTLE_OFFSET)
+     // while(adcData[1]>THROTTLE_OFFSET)
 
    	  	{
    	  	//do nothing (For Safety at switching on)
@@ -822,7 +822,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 #ifdef NCTE
 			  // read in throttle for throttle override
-			  int16_mapped_throttle = map(adcData[1], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+			  int16_mapped_throttle = map(adcData[6], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
 
 #else //else NTCE
 			  // read in throttle for throttle override
