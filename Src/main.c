@@ -522,7 +522,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
   	   			if(y==35) autodetect();
   	   			}
 #else
-	ui32_throttle_cumulated=THROTTLE_MIN     <<4;  // volker
+	ui32_torque_raw_cumulated=THROTTLE_MIN     <<4;  // volker wheel chair ui32_throttle_cumulated
   	//ui32_torque_raw_cumulated=THROTTLE_OFFSET<<4;
 #endif
 
