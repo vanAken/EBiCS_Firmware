@@ -159,9 +159,10 @@ uint16_t ui16_erps=0;
 
 uint32_t uint32_torque_cumulated=0;
 uint32_t uint32_PAS_cumulated=32000;
-int16_t uint16_mapped_throttle=0;
+uint16_t uint16_mapped_throttle=0;;  // negative Werte zulassen seach replace
+int16_t int16_mapped_throttle=0;
 uint16_t ui16_throttle_min = THROTTLE_MIN;
-int16_t ui16_throttle_mid = THROTTLE_MID; // from wheelchair branch volker
+uint16_t ui16_throttle_mid = THROTTLE_MID; // from wheelchair branch volker
 uint16_t uint16_mapped_PAS=0;
 uint16_t uint16_mapped_BRAKE=0;
 uint16_t uint16_half_rotation_counter=0;
@@ -822,21 +823,20 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 #ifdef NCTE
 			  // read in throttle for throttle override
-			  int16_mapped_throttle = map(adcData[6], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
-
+			  int16_mapped_throttle = map(adcData[6], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);
 #else //else NTCE
 			  // read in throttle for throttle override
 
 			  if (adcData[1]<ui16_throttle_mid-50){
-				  int16_mapped_throttle = map(adcData[6], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+				  int16_mapped_throttle = map(adcData[6], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0); 
 			  }
 			  else if(adcData[1]>ui16_throttle_mid+50){
-				  int16_mapped_throttle = map(adcData[6], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+				  int16_mapped_throttle = map(adcData[6], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  
 			  }
 			  else int16_mapped_throttle = 0;
 #endif //end NTCE
 
- 		//old   int16_mapped_throttle = map(adcData[1], THROTTLE_MIN, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
+ 		//old   uint16_mapped_throttle = map(adcData[1], THROTTLE_MIN, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
 
 #ifndef TS_MODE //normal PAS Mode
 
