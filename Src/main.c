@@ -159,7 +159,7 @@ uint16_t ui16_erps=0;
 
 uint32_t uint32_torque_cumulated=0;
 uint32_t uint32_PAS_cumulated=32000;
-uint16_t uint16_mapped_throttle=0;
+int16_t uint16_mapped_throttle=0;
 uint16_t ui16_throttle_min = THROTTLE_MIN;
 uint16_t ui16_throttle_mid = THROTTLE_MID; // from wheelchair branch volker
 uint16_t uint16_mapped_PAS=0;
@@ -503,8 +503,8 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
    	ui8_adc_offset_done_flag=1;
 
 #if defined (ADC_BRAKE)
-
-  	while ((adcData[5]>THROTTLE_OFFSET)&&(adcData[1]>(THROTTLE_MAX-THROTTLE_OFFSET))){HAL_Delay(200);
+	while ((adcData[5]>THROTTLE_MIN   )&&(adcData[1]>(THROTTLE_MAX-THROTTLE_MIN   ))){HAL_Delay(200);  // volker
+   	//while ((adcData[5]>THROTTLE_OFFSET)&&(adcData[1]>(THROTTLE_MAX-THROTTLE_OFFSET))){HAL_Delay(200);
    	   	   			y++;
    	   	   			if(y==35) autodetect();
    	   	   			}
@@ -513,15 +513,17 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 //run autodect, whenn brake is pulled an throttle is pulled for 10 at startup
 #ifndef NCTE
-        // THROTTLE_MIN in wheelchair dont change it ask Hochsitzcola fo the sense of this change TODO 
-  	while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){ 
+        
+	while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_MIN   +20))){  // volker
+  	//while ((!HAL_GPIO_ReadPin(Brake_GPIO_Port, Brake_Pin))&&(adcData[1]>(THROTTLE_OFFSET+20))){ 
     
   				HAL_Delay(200);
   	   			y++;
   	   			if(y==35) autodetect();
   	   			}
 #else
-  	ui32_torque_raw_cumulated=THROTTLE_OFFSET<<4;
+	ui32_throttle_cumulated=THROTTLE_MIN     <<4;  // volker
+  	//ui32_torque_raw_cumulated=THROTTLE_OFFSET<<4;
 #endif
 
 #if (DISPLAY_TYPE == DISPLAY_TYPE_DEBUG)
@@ -533,8 +535,8 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 #endif
 
-
-   	while(adcData[1]>THROTTLE_OFFSET)
+        while(adcData[1]>THROTTLE_MIN)    // volker
+   	// while(adcData[1]>THROTTLE_OFFSET)
 
    	  	{
    	  	//do nothing (For Safety at switching on)
@@ -719,7 +721,9 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 
 #ifdef ADC_BRAKE
-		uint16_mapped_BRAKE = map(ui16_brake_adc, THROTTLE_OFFSET , THROTTLE_MAX, 0, REGEN_CURRENT);
+		
+		uint16_mapped_BRAKE = map(ui16_brake_adc, THROTTLE_MIN    , THROTTLE_MAX, 0, REGEN_CURRENT);  // volker
+	  //    uint16_mapped_BRAKE = map(ui16_brake_adc, THROTTLE_OFFSET , THROTTLE_MAX, 0, REGEN_CURRENT);
 
 
 		if(uint16_mapped_BRAKE>0) brake_flag=1;
@@ -816,18 +820,23 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 #ifdef THROTTLE_OVERRIDE
 
 
-//#ifdef NCTE
-//			  // read in throttle for throttle override
-//			  uint16_mapped_throttle = map(ui16_throttle, THROTTLE_MAX, THROTTLE_OFFSET,PH_CURRENT_MAX,0);
-//
-//
-//#else //else NTCE
-//			  // read in throttle for throttle override
-//			  uint16_mapped_throttle = map(adcData[1], THROTTLE_OFFSET, THROTTLE_MAX, 0,PH_CURRENT_MAX);
-//
-//#endif //end NTCE
-//					org.: =    map(adcData[1], => [6] Gasgrip pluged *instead of  torque sensor see line 1011  volker
- 			  uint16_mapped_throttle = map(adcData[1], THROTTLE_OFFSET, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
+#ifdef NCTE
+			  // read in throttle for throttle override
+			  int16_mapped_throttle = map(adcData[1], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+
+#else //else NTCE
+			  // read in throttle for throttle override
+
+			  if (adcData[1]<ui16_throttle_mid-50){
+				  int16_mapped_throttle = map(adcData[1], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+			  }
+			  else if(adcData[1]>ui16_throttle_mid+50){
+				  int16_mapped_throttle = map(adcData[1], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  // volker org. uint16_mapped_throttle = map(ui16_throttle
+			  }
+			  else int16_mapped_throttle = 0;
+#endif //end NTCE
+
+ 		//old   int16_mapped_throttle = map(adcData[1], THROTTLE_MIN, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
 
 #ifndef TS_MODE //normal PAS Mode
 
@@ -840,17 +849,17 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 #endif		// end #ifndef TS_MODE
 			    //check for throttle override
-				if(uint16_mapped_throttle>int32_temp_current_target){
+				if(int16_mapped_throttle>int32_temp_current_target){
 
 #ifdef SPEEDTHROTTLE
 
 
-					uint16_mapped_throttle = uint16_mapped_throttle*SPEEDLIMIT/PH_CURRENT_MAX;//throttle override: calulate speed target from thottle
+					int16_mapped_throttle = int16_mapped_throttle*SPEEDLIMIT/PH_CURRENT_MAX;//throttle override: calulate speed target from thottle
 
 
 
 
-					  PI_speed.setpoint = uint16_mapped_throttle*100;
+					  PI_speed.setpoint = int16_mapped_throttle*100;
 					  PI_speed.recent_value = internal_tics_to_speedx100(uint32_tics_filtered>>3);
 					 if( PI_speed.setpoint)SET_BIT(TIM1->BDTR, TIM_BDTR_MOE);
 					if (internal_tics_to_speedx100(uint32_tics_filtered>>3)<300){//control current slower than 3 km/h
@@ -880,7 +889,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 
 
 #else // end speedthrottle
-					int32_temp_current_target=uint16_mapped_throttle;
+					int32_temp_current_target=int16_mapped_throttle;
 #endif  //end speedthrottle
 
 				  } //end else of throttle override
@@ -2169,7 +2178,7 @@ static void set_inj_channel(char state){
 
 }
 uint8_t throttle_is_set(void){
-	if(uint16_mapped_throttle > 0)
+	if(int16_mapped_throttle > 0)
 	{
 		return 1;
 	}
