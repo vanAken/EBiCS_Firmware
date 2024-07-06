@@ -159,7 +159,7 @@ uint16_t ui16_erps=0;
 
 uint32_t uint32_torque_cumulated=0;
 uint32_t uint32_PAS_cumulated=32000;
-uint16_t uint16_mapped_throttle=0;;  // negative Werte zulassen seach replace
+//uint16_t uint16_mapped_throttle=0;;  // negative Werte zulassen seach replace
 int16_t int16_mapped_throttle=0;
 uint16_t ui16_throttle_min = THROTTLE_MIN;
 uint16_t ui16_throttle_mid = THROTTLE_MID; // from wheelchair branch volker
