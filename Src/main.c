@@ -101,6 +101,7 @@ uint8_t ui8_hall_state_old=0;
 uint8_t ui8_hall_case =0;
 uint16_t ui16_tim2_recent=0;
 uint16_t ui16_timertics=5000; 					//timertics between two hall events for 60Â° interpolation
+uint16_t ui16_throttle;                                         // add var for Gas
 uint16_t ui16_torque;
 uint16_t ui16_brake_adc;
 uint32_t ui32_torque_raw_cumulated;
@@ -159,8 +160,8 @@ uint16_t ui16_erps=0;
 
 uint32_t uint32_torque_cumulated=0;
 uint32_t uint32_PAS_cumulated=32000;
-//uint16_t uint16_mapped_throttle=0;;  // negative Werte zulassen seach replace
-int16_t int16_mapped_throttle=0;
+//uint16_t uint16_mapped_throttle=0;
+int16_t     int16_mapped_throttle=0;  // negative Werte zulassen seach replace
 uint16_t ui16_throttle_min = THROTTLE_MIN;
 uint16_t ui16_throttle_mid = THROTTLE_MID; // from wheelchair branch volker
 uint16_t uint16_mapped_PAS=0;
@@ -642,10 +643,12 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 		ui32_brake_adc_cumulated -= ui32_brake_adc_cumulated>>4;
 		ui32_brake_adc_cumulated+=adcData[5];//get value for analog brake from AD2 = PB0
 		ui16_brake_adc=ui32_brake_adc_cumulated>>4;
+		ui16_throttle = ui32_throttle_cumulated>>4; // volker add var for Gas
 		ui16_torque = ui32_torque_raw_cumulated>>4;
 
 		ui8_adc_regular_flag=0;
 
+		  
 	  }
 
 	  //PAS signal processing
@@ -665,10 +668,15 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 		  //read in and sum up torque-signal within one crank revolution (for sempu sensor 32 PAS pulses/revolution, 2^5=32)
 		  uint32_torque_cumulated -= uint32_torque_cumulated>>5;
 #ifdef NCTE
-		  if(ui16_torque<TORQUE_OFFSET)uint32_torque_cumulated += (TORQUE_OFFSET-ui16_torque);
-#else
-		  if(ui16_torque>TORQUE_OFFSET)uint32_torque_cumulated += (ui16_torque-TORQUE_OFFSET);
+		  if(ui16_torque  <THROTTLE_MIN)uint32_torque_cumulated += (THROTTLE_MIN-ui16_torque);
+	          if(ui16_throttle<THROTTLE_MIN)uint32_torque_cumulated += (THROTTLE_MIN-ui16_throttle);
+#else             // volker add gas
+		  if(ui16_torque  >THROTTLE_MIN)uint32_torque_cumulated += (ui16_torque  -THROTTLE_MIN);
+		  if(ui16_throttle>THROTTLE_MIN)uint32_torque_cumulated += (ui16_throttle-THROTTLE_MIN);
 #endif
+
+
+			  
 		  }
 	  }
 
@@ -910,7 +918,7 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 //			else int32_temp_current_target=int32_temp_current_target;
 #else //legalflag
 				MS.i_q_setpoint=int32_temp_current_target;
-#endif //legalflag
+/#endif //legalflag
 				MS.i_q_setpoint=map(MS.Temperature, 120,130,int32_temp_current_target,0); //ramp down power with temperature to avoid overheating the motor
 				//auto KV detect
 			  if(ui8_KV_detect_flag){
