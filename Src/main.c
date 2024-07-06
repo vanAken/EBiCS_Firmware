@@ -104,6 +104,7 @@ uint16_t ui16_timertics=5000; 					//timertics between two hall events for 60Ã‚Â
 uint16_t ui16_throttle;                                         // add var for Gas
 uint16_t ui16_torque;
 uint16_t ui16_brake_adc;
+uint32_t ui32_throttle_cumulated;
 uint32_t ui32_torque_raw_cumulated;
 uint32_t ui32_brake_adc_cumulated;
 uint16_t ui16_ph1_offset=0;
