@@ -50,12 +50,12 @@
 #define I_FACTOR_PLL 10
 
 //----------------------------------------------------------------------
-//Battery bar settings for Kunteng and Bafang Display
-#define BATTERY_LEVEL_1 323000
-#define BATTERY_LEVEL_2 329000
-#define BATTERY_LEVEL_3 344000
-#define BATTERY_LEVEL_4 368000
-#define BATTERY_LEVEL_5 380000
+//Battery bar settings from https://www.pedelecforum.de/forum/index.php?threads/open-source-firmware-fuer-lishui-controller.61113/page-109#post-2225232
+#define BATTERY_LEVEL_1 453000
+#define BATTERY_LEVEL_2 479000
+#define BATTERY_LEVEL_3 494000
+#define BATTERY_LEVEL_4 518000
+#define BATTERY_LEVEL_5 530000
 
 //----------------------------------------------------------------------
 //PI-control factor settings
