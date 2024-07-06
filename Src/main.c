@@ -916,10 +916,11 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 					int32_temp_current_target=map(uint32_SPEEDx100_cumulated>>SPEEDFILTER, 2000,2200,int32_temp_current_target,0);
 					}
 				}
+			
 //			else int32_temp_current_target=int32_temp_current_target;
 #else //legalflag
 				MS.i_q_setpoint=int32_temp_current_target;
-/#endif //legalflag
+#endif //legalflag
 				MS.i_q_setpoint=map(MS.Temperature, 120,130,int32_temp_current_target,0); //ramp down power with temperature to avoid overheating the motor
 				//auto KV detect
 			  if(ui8_KV_detect_flag){
