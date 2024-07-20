@@ -101,7 +101,7 @@ uint8_t ui8_hall_state_old=0;
 uint8_t ui8_hall_case =0;
 uint16_t ui16_tim2_recent=0;
 uint16_t ui16_timertics=5000; 					//timertics between two hall events for 60Â° interpolation
-uint16_t ui16_throttle;                                         // add var for Gas
+uint16_t ui16_throttle;                                         // add var for Gas volker
 uint16_t ui16_torque;
 uint16_t ui16_brake_adc;
 uint32_t ui32_throttle_cumulated;
