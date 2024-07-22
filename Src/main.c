@@ -830,22 +830,22 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 #ifdef THROTTLE_OVERRIDE
 
 
-#ifdef NCTE
-			  // read in throttle for throttle override
-			  int16_mapped_throttle = map(adcData[6], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);
-#else //else NTCE
-			  // read in throttle for throttle override
+//#ifdef NCTE
+//			  // read in throttle for throttle override
+//			  int16_mapped_throttle = map(adcData[6], THROTTLE_MAX, THROTTLE_MIN,PH_CURRENT_MAX,0);
+//#else //else NTCE
+//			  // read in throttle for throttle override
+//
+//			  if (adcData[1]<ui16_throttle_mid-50){
+//				  int16_mapped_throttle = map(adcData[6], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0); 
+//			  }
+//			  else if(adcData[1]>ui16_throttle_mid+50){
+//				  int16_mapped_throttle = map(adcData[6], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  
+//			  }
+//			  else int16_mapped_throttle = 0;
+//#endif //end NTCE
 
-			  if (adcData[1]<ui16_throttle_mid-50){
-				  int16_mapped_throttle = map(adcData[6], THROTTLE_MIN, ui16_throttle_mid-50, -PH_CURRENT_MAX,0); 
-			  }
-			  else if(adcData[1]>ui16_throttle_mid+50){
-				  int16_mapped_throttle = map(adcData[6], ui16_throttle_mid+50, THROTTLE_MAX, 0, PH_CURRENT_MAX);  
-			  }
-			  else int16_mapped_throttle = 0;
-#endif //end NTCE
-
- 		//old   uint16_mapped_throttle = map(adcData[1], THROTTLE_MIN, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
+ 	   uint16_mapped_throttle = map(adcData[1], THROTTLE_MIN, THROTTLE_MAX, 0,PH_CURRENT_MAX); //throttle override, no torque override in this version actually
 
 #ifndef TS_MODE //normal PAS Mode
 
