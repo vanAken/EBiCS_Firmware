@@ -88,7 +88,7 @@
 #define SPEEDLIMIT 45
 #define PULSES_PER_REVOLUTION 1
 #define SPEEDSOURCE INTERNAL
-#define SPEEDFILTER 0  // org. 1 volker
+#define SPEEDFILTER 1  // org. 1 volker
 #define SPDSHFT 0
 
 //---------------------------------------------------------------------
