@@ -85,7 +85,7 @@
 //Speed settings
 #define WHEEL_CIRCUMFERENCE 2200
 #define GEAR_RATIO 23 //11 for BionX IGH3 23 für 46 Magnete für AYW für 48V 1000W Standard 11x6 ca. 360-380U/min
-//#define SPEEDLIMIT 45
+#define SPEEDLIMIT //45
 #define PULSES_PER_REVOLUTION 1
 #define SPEEDSOURCE INTERNAL
 #define SPEEDFILTER 1
