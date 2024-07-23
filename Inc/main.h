@@ -92,7 +92,7 @@
 #define LEGALFLAG   // volker
 #define BATTERYVOLTAGE_MAX 53000
 #define R_TEMP_PULLUP 0
-#define TORQUE_OFFSET 750 // org. 1580 volker 1300 dms 1 
+#define TORQUE_OFFSET 1300 // org. 1580 volker 1300 dms 1 ; 750 dms 2
 #define TORQUE_MAX 850
 #define SPEC_ANGLE -1550960412L //-1312351118L		//Shengyi Heckmotor aus Fischer ETH1606 per trial and error
 #define FILTER_DELAY 59652323<<4	 //1073741824L	// for angle correction of i_alfa + i_beta
