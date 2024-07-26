@@ -56,6 +56,8 @@
 #define BATTERY_LEVEL_3 494000
 #define BATTERY_LEVEL_4 518000
 #define BATTERY_LEVEL_5 530000
+#define CAL_BAT_V 100
+
 
 //----------------------------------------------------------------------
 //PI-control factor settings
