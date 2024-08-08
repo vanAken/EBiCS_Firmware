@@ -1029,13 +1029,13 @@ if(MP.com_mode==Sensorless_openloop||MP.com_mode==Sensorless_startkick)MS.Obs_fl
 		  //print values for debugging
 
 		  // 					            org.:    adcData[1] change for debugging Gasgrip to the output see line 828 // volker
-	          //sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[0],adcData[1],MS.i_q_setpoint, MS.Speed, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
-		  sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[1],MS.i_q_setpoint, MS.Speed, temp4, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
+	          sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[0],adcData[1], adcData[2],adcData[3],MS.i_q_setpoint, MS.Speed, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
+		  //sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d, %d, %d\r\n", adcData[1],MS.i_q_setpoint, MS.Speed, temp4, MS.Obs_flag, int32_temp_current_target , MS.i_q, uint16_idle_run_counter, MS.system_state);
 		  //sprintf_(buffer, "%d, %d, %d, %d, %d, %d, %d\r\n",(uint16_t)adcData[0],(uint16_t)adcData[1],(uint16_t)adcData[2],(uint16_t)adcData[3],(uint16_t)(adcData[4]),(uint16_t)(adcData[5]),(uint16_t)(adcData[6])) ;
 		  // sprintf_(buffer, "%d, %d, %d, %d, %d, %d\r\n",tic_array[0],tic_array[1],tic_arra[2],tic_array[3],tic_array[4],tic_array[5]) ;
 		  i=0;
 		  while (buffer[i] != '\0')
-		  {i++;
+		  {i++;}
 		 HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&buffer, i);
 
 
