@@ -107,8 +107,8 @@
 
 //---------------------------------------------------------------------
 //Display settings
-#define DISPLAY_TYPE DISPLAY_TYPE_KINGMETER_901U  // collor display volker
-//#define DISPLAY_TYPE DISPLAY_TYPE_DEBUG       // for the hterm volker
+//#define DISPLAY_TYPE DISPLAY_TYPE_KINGMETER_901U  // collor display volker
+#define DISPLAY_TYPE DISPLAY_TYPE_DEBUG       // for the hterm volker
 //---------------------------------------------------------------------
 //Regen settings
 
