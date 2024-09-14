@@ -114,7 +114,7 @@
 
 #define REGEN_CURRENT 800
 #define REGEN_CURRENT_MAX 4000  // org. 10 000  volker
-#define ADC_BRAKE
+//#define ADC_BRAKE
 
 //---------------------------------------------------------------------
 #define AUTODETECT 0  //  org. 0  
